@@ -51,13 +51,29 @@ const HiringPartners = () => {
   }, []);
 
   useEffect(() => {
-    if (scrollRef.current && window.innerWidth < 768) {
-      // Scroll to third item
-      const itemWidth = 120; // width of each item
-      const gap = 30; // gap between items
-      scrollRef.current.scrollLeft = (itemWidth + gap) * 2 + (itemWidth / 1) - (window.innerWidth / 3); // Center the Apna item
+  if (window.innerWidth >= 768) return; // Only run on mobile
+  const timeout = setTimeout(() => {
+    if (scrollRef.current) {
+      const container = scrollRef.current;
+      const apnaIndex = 2; 
+      const images = container.querySelectorAll("img");
+      const item = images[apnaIndex];
+
+      if (item) {
+        const containerCenter = container.offsetWidth / 2;
+        const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+
+        container.scrollTo({
+          left: itemCenter - containerCenter,
+          behavior: "smooth",
+        });
+      }
     }
-  }, []);
+  }, 300); 
+
+  return () => clearTimeout(timeout);
+}, []);
+
 
   const startDrag = (e) => {
     setIsDragging(true);

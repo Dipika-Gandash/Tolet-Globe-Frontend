@@ -61,8 +61,8 @@ const GetInTouch = () => {
           GET IN TOUCH
         </p>
         <div className="max-lg:text-center">
-          <p className="text-gray-300 pb-2">Have some questions?</p>
-          <p className="text-gray-300 pb-4">Feel free to ask them anytime.</p>
+          <p className="text-gray-300 pb-2 md:text-gray-400">Have some questions?</p>
+          <p className="text-gray-300 pb-4 md:text-gray-400">Feel free to ask them anytime.</p>
         </div>
 
         <form className="flex flex-col" onSubmit={handleSubmit}>
@@ -109,7 +109,7 @@ const GetInTouch = () => {
           ) : (
             <input
               type="submit"
-              value="Send Message →"
+              value="Send Message ➜"
               className="cursor-pointer self-start font-semibold max-lg:font-normal max-lg:text-[#C69F22]"
             />
           )}
@@ -123,10 +123,10 @@ const GetInTouch = () => {
       src={location}
       alt="Background"
       className="w-full max-sm:h-[320px] max-sm:rounded-xl max-sm:object-cover
-                 sm:h-full sm:w-full sm:object-cover sm:rounded-lg sm:shadow-lg sm:border sm:border-white/20"
+                 sm:h-full sm:w-full sm:object-cover sm:rounded-lg sm:shadow-lg"
     />
     {/* Gradient overlay only for desktop */}
-    <div className="hidden sm:block sm:absolute sm:top-0 sm:left-0 sm:w-full sm:h-full sm:bg-gradient-to-l sm:from-black/80 sm:to-transparent"></div>
+    <div className="hidden sm:block sm:absolute sm:top-0 sm:left-0 sm:w-full sm:h-full sm:bg-gradient-to-l sm:from-black/30 sm:to-transparent"></div>
   </a>
 </div>
 

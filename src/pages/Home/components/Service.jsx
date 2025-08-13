@@ -60,18 +60,18 @@ const Service = () => {
   ];
 
   return (
-    <div className="w-full mx-auto pt-12 max-lg:pt-1 px-5 sm:px-12 xl:px-20 mt-[-150px] md:mt-0 bg-black">
-      <div className="flex flex-col items-center lg:items-start text-center lg:text-left px-8 py-8">
-        <h1 className="text-white font-medium text-5xl sm:text-7xl lg:text-[clamp(78px,5vw,96px)] leading-tight">
+    <div className="w-full mx-auto pt-12 max-lg:pt-1 px-5 sm:px-12 xl:px-20 mt-[-180px] md:mt-0 bg-black">
+      <div className="flex flex-col items-center lg:items-start text-center lg:text-left px-8 pt-4 pb-2 md:py-8">
+        <h1 className="text-white font-semibold text-[56px] sm:text-[48px] lg:text-[64px] xl:text-[78px] leading-tight">
           Services
         </h1>
-        <p className="text-[#C8A21C] font-[Poppins] font-medium text-xs md:text-sm mt-1 md:mt-2 max-w-xl">
+        <p className="text-[#C8A21C] font-[Poppins] font-semibold text-[10px] sm:text-[13px] md:text-sm mt-1 md:mt-2">
           SKIP THE MIDDLEMAN: RENT OR LEASE DIRECTLY ON TO-LET GLOBE
         </p>
       </div>
 
       {/* Responsive Grid Layout */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-2 gap-y-9 mt-12 md:px-16 lg:px-2 xl:px-36">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 lg:gap-x-2 gap-y-6 mt-6 md:mt-12 md:px-16 lg:px-2 xl:px-36">
         {services.map((service, index) => (
           <div key={index} className="w-full flex justify-center">
             <ServiceCard {...service} />

@@ -16,7 +16,7 @@ const ServiceCard = ({ img, title, bg, path, description }) => {
           />
         </div>
         <div
-          className={`rounded-b-lg text-left flex flex-col px-4 ${bg} h-[60%] py-3`}
+          className={`rounded-b-lg text-left flex flex-col px-2 py-2 ${bg} h-[60%] py-3`}
         >
           <h1 className="text-base sm:text-lg md:text-xl font-semibold text-black line-clamp-2">
             {title}
@@ -39,7 +39,7 @@ const ServiceCard = ({ img, title, bg, path, description }) => {
         <div
           className={`w-full h-[60%] flex flex-col justify-center rounded-b-[10px] p-4 ${bg}`}
         >
-          <h2 className="text-black font-bold text-2xl leading-[36px] tracking-[0%] max-w-full break-words">
+          <h2 className="text-black font-semibold text-2xl leading-[36px] tracking-[0%] max-w-full break-words">
             {title}
           </h2>
           <p className="text-black font-normal text-sm leading-5 tracking-[0%] max-w-full break-words mt-2">

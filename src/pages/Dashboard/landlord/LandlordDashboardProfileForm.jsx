@@ -284,7 +284,7 @@ const LandlordDashboardProfileForm = () => {
               <input
                 type="email"
                 name="email"
-                disabled={false}
+                disabled
                 value={userInfo.email}
                 onChange={handleInputChange}
                 placeholder="Enter Your Email ID"
@@ -301,6 +301,7 @@ const LandlordDashboardProfileForm = () => {
               <input
                 type="text"
                 name="phoneNumber"
+                disabled
                 value={userInfo.phoneNumber}
                 onChange={handleInputChange}
                 placeholder="Enter Your Phone Number"
