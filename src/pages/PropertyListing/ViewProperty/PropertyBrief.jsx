@@ -25,7 +25,7 @@ const ItemTypes = {
   COMPARE_BUTTON: "compareButton",
 };
 
-const PropertyBrief = ({ property , isOwnerOrAdmin , fetchProperty}) => {
+const PropertyBrief = ({ property, isOwnerOrAdmin, fetchProperty }) => {
   const navigate = useNavigate();
   const [{ compareProperty }, dispatch] = useStateValue();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,7 +50,7 @@ const PropertyBrief = ({ property , isOwnerOrAdmin , fetchProperty}) => {
   };
 
   useEffect(() => {
-    console.log("User data", authState?.userData)
+    console.log("User data", authState?.userData);
     const fetchFavouriteProperties = async () => {
       try {
         if (!authState?.userData?.id) {
@@ -186,38 +186,38 @@ const PropertyBrief = ({ property , isOwnerOrAdmin , fetchProperty}) => {
     }
   };
 
-  // Change the availibility status. 
+  // Change the availibility status.
   const changeAvailibilityStatus = async (propertyId) => {
-  try {
-    const newStatus = property.availabilityStatus === "Available" 
-      ? "Rented Out" 
-      : "Available";
-    
-    const token = localStorage.getItem("token");
-    await API.put(
-      `property/${propertyId}/availability`,
-      { availabilityStatus: newStatus },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    
-    toast.success(
-      `Property marked as ${newStatus === "Available" 
-        ? "Available" 
-        : "Rented Out"} successfully`
-    );
-    
-    // Refresh the property data
-    await fetchProperty();
-    
-  } catch (error) {
-    console.error("Error updating availability status:", error);
-    toast.error("Failed to update availability status");
-  }
-};
+    try {
+      const newStatus =
+        property.availabilityStatus === "Available"
+          ? "Rented Out"
+          : "Available";
+
+      const token = localStorage.getItem("token");
+      await API.put(
+        `property/${propertyId}/availability`,
+        { availabilityStatus: newStatus },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      toast.success(
+        `Property marked as ${
+          newStatus === "Available" ? "Available" : "Rented Out"
+        } successfully`
+      );
+
+      // Refresh the property data
+      await fetchProperty();
+    } catch (error) {
+      console.error("Error updating availability status:", error);
+      toast.error("Failed to update availability status");
+    }
+  };
 
   const removeFromFavourites = async (propertyId) => {
     try {
@@ -266,7 +266,7 @@ const PropertyBrief = ({ property , isOwnerOrAdmin , fetchProperty}) => {
   };
 
   // Custom Arrow Components for the property card slider
-  const PrevArrow = ({ onClick }) => (
+  const PrevArrow = ({ onClick, ...rest }) => (
     <div
       className="absolute top-1/2 left-1 transform -translate-y-1/2 bg-white/30 hover:bg-slate-200 text-black rounded-full cursor-pointer z-10 flex items-end justify-center w-5 h-5 lg:w-9 lg:h-9"
       onClick={onClick}
@@ -277,7 +277,7 @@ const PropertyBrief = ({ property , isOwnerOrAdmin , fetchProperty}) => {
     </div>
   );
 
-  const NextArrow = ({ onClick }) => (
+  const NextArrow = ({ onClick, ...rest }) => (
     <div
       className="absolute top-1/2 right-1 transform -translate-y-1/2 bg-white/30 hover:bg-slate-200 text-black rounded-full cursor-pointer z-10 flex items-end justify-center w-5 h-5 lg:w-9 lg:h-9"
       onClick={onClick}
@@ -299,6 +299,25 @@ const PropertyBrief = ({ property , isOwnerOrAdmin , fetchProperty}) => {
     draggable: false,
   };
 
+  // Modal Arrow Components
+  const ModalPrevArrow = ({ onClick, ...rest }) => (
+    <div
+      className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white text-4xl cursor-pointer rounded-full w-12 h-12 flex items-center justify-center z-10"
+      onClick={onClick}
+    >
+      &#8592;
+    </div>
+  );
+
+  const ModalNextArrow = ({ onClick, ...rest }) => (
+    <div
+      className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white text-4xl cursor-pointer rounded-full w-12 h-12 flex items-center justify-center z-10"
+      onClick={onClick}
+    >
+      &#8594;
+    </div>
+  );
+
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -306,8 +325,8 @@ const PropertyBrief = ({ property , isOwnerOrAdmin , fetchProperty}) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
-    nextArrow: <div className="next-arrow text-white text-4xl">&#8594;</div>,
-    prevArrow: <div className="prev-arrow text-white text-4xl ">&#8592;</div>,
+    nextArrow: <ModalNextArrow />,
+    prevArrow: <ModalPrevArrow />,
   };
 
   const DraggableCompareButton = ({ compareProperty, onNavigate }) => {
@@ -536,7 +555,7 @@ const PropertyBrief = ({ property , isOwnerOrAdmin , fetchProperty}) => {
               <img
                 src={property.images[0]}
                 alt={property.propertyType}
-                className="w-full h-full object-cover rounded-lg cursor-pointer"
+                className="w-full h-full object-cover rounded-lg cursor-pointer bg-black"
                 onClick={() => openModal(property.images[0], 0)}
                 onError={handleImageError}
               />
@@ -548,7 +567,7 @@ const PropertyBrief = ({ property , isOwnerOrAdmin , fetchProperty}) => {
                   <img
                     src={image}
                     alt={`${property.propertyType} ${index + 2}`}
-                    className="w-full h-[246px] object-cover rounded-lg cursor-pointer"
+                    className="w-full h-[246px] object-cover rounded-lg cursor-pointer bg-black"
                     onClick={() => openModal(image, index + 1)}
                     onError={handleImageError}
                   />
@@ -572,7 +591,7 @@ const PropertyBrief = ({ property , isOwnerOrAdmin , fetchProperty}) => {
               <img
                 src={property.images[0]}
                 alt={property.propertyType}
-                className="w-full h-[300px] object-cover rounded-lg cursor-pointer"
+                className="w-full h-[300px] object-cover rounded-lg cursor-pointer bg-black"
                 onClick={() => openModal(property.images[0], 0)}
                 onError={handleImageError}
               />
@@ -585,7 +604,7 @@ const PropertyBrief = ({ property , isOwnerOrAdmin , fetchProperty}) => {
                     <img
                       src={image}
                       alt={`${property.propertyType} ${index + 2}`}
-                      className="w-full h-[70px] object-cover cursor-pointer"
+                      className="w-full h-[70px] object-cover cursor-pointer bg-black"
                       onClick={() => openModal(image, index + 1)}
                       onError={handleImageError}
                     />
@@ -623,58 +642,55 @@ const PropertyBrief = ({ property , isOwnerOrAdmin , fetchProperty}) => {
             </button>
           </div>
 
-          <div className="flex-1 flex overflow-y-auto p-4">
-            {/* Image Slider for Large Screens */}
-            <div className="lg:flex-1 lg:overflow-y-auto p-10 lg:block relative flex items-center justify-center">
-              {property.images.length === 1 ? (
-                <div className="w-full flex items-center justify-center">
-                  <img
-                    src={property.images[0]}
-                    alt={`${property.propertyType} 1`}
-                    className="h-[500px] rounded-lg block"
-                    onError={handleImageError}
-                  />
-                </div>
-              ) : (
-                <Slider {...sliderSettings}>
-                  {property.images.map((image, index) => (
-                    <div
-                      key={index}
-                      className="w-full items-center justify-center !flex"
-                    >
-                      <img
-                        src={image}
-                        alt={`${property.propertyType} ${index + 1}`}
-                        className="h-[500px] rounded-lg block"
-                        onError={handleImageError}
-                      />
-                    </div>
-                  ))}
-                </Slider>
-              )}
-            </div>
-
-            {/* Image Grid for Small Screens */}
-            <div className="lg:hidden flex-1 overflow-y-auto p-4">
-              <div className="max-w-4xl mx-auto space-y-4">
+          {/* <div className="flex-1 flex overflow-y-auto p-4"> */}
+          {/* Image Slider for Large Screens */}
+          <div className="lg:flex-1 lg:overflow-y-auto p-10 md:block hidden relative flex items-center justify-center">
+            {property.images.length === 1 ? (
+              <div className="w-full flex items-center justify-center">
+                <img
+                  src={property.images[0]}
+                  alt={`${property.propertyType} 1`}
+                  className="h-[500px] rounded-lg block object-contain bg-black"
+                  onError={handleImageError}
+                />
+              </div>
+            ) : (
+              <Slider {...sliderSettings}>
                 {property.images.map((image, index) => (
-                  <div key={index} className="w-full">
+                  <div
+                    key={index}
+                    className="w-full items-center justify-center !flex"
+                  >
                     <img
                       src={image}
                       alt={`${property.propertyType} ${index + 1}`}
-                      className="w-full h-auto rounded-lg"
+                      className="h-[500px] rounded-lg block object-contain bg-black"
                       onError={handleImageError}
                     />
                   </div>
                 ))}
-              </div>
-            </div>
+              </Slider>
+            )}
           </div>
 
-          {/* <div className="p-4 text-center text-white bg-black bg-opacity-50">
-            Photos | Videos | Property Map
-          </div> */}
+          {/* Image Grid for Small Screens */}
+          <div className="md:hidden flex-1 overflow-y-auto p-4">
+            <div className="max-w-4xl mx-auto space-y-4">
+              {property.images.map((image, index) => (
+                // <div key={index} className="w-full">
+                <div key={index}>
+                  <img
+                    src={image}
+                    alt={`${property.propertyType} ${index + 1}`}
+                    className="w-full h-auto rounded-lg"
+                    onError={handleImageError}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
+        // </div>
       )}
 
       {/* Compare button - Shown when property is added to compare */}
@@ -693,7 +709,7 @@ const PropertyBrief = ({ property , isOwnerOrAdmin , fetchProperty}) => {
       <div className="md:flex justify-between pt-8">
         <div className="lg:w-[40%]">
           <h1 className="text-left text-white lg:text-5xl">
-            {property?.propertyType} 
+            {property?.propertyType}
             <span>
               <img
                 src={shield}
@@ -704,8 +720,8 @@ const PropertyBrief = ({ property , isOwnerOrAdmin , fetchProperty}) => {
           </h1>
           <p className="text-gray-400 block lg:text-2xl lg:py-4">
             {/* <span className="blur-sm">,{property?.area}</span>,{property?.area}, */}
-           <span> {isOwnerOrAdmin ? property?.address : `---------` } </span>,{property?.area},{property?.locality},
-            {property?.city}
+            <span> {isOwnerOrAdmin ? property?.address : `---------`} </span>,
+            {property?.area},{property?.locality},{property?.city}
           </p>
 
           <div className="flex items-center lg:text-2xl lg:pb-4">
@@ -874,42 +890,44 @@ const PropertyBrief = ({ property , isOwnerOrAdmin , fetchProperty}) => {
                 {property?.firstName} {property?.lastName}
               </p>
               <p className="text-gray-500 font-normal lg:text-xl">
-               {isOwnerOrAdmin ? property.ownersContactNumber : `+${maskPhoneNumber(property?.ownersContactNumber)}` }
+                {isOwnerOrAdmin
+                  ? property.ownersContactNumber
+                  : `+${maskPhoneNumber(property?.ownersContactNumber)}`}
               </p>
             </div>
           </div>
 
-        {isOwnerOrAdmin ? (
-          <button
-            className="w-full py-3 px-4 rounded-lg flex items-center justify-center md:gap-[2rem] lg:gap-[2rem] text-black font-semibold lg:text-xl"
-            style={{ backgroundColor: "#3B9D94" }}
-            onClick={() => changeAvailibilityStatus(property._id)}
-          >
-            <img
-              src={fav}
-              alt="favorite"
-              className="hidden md:block lg:block h-6 w-5"
-            />
-            {property.availabilityStatus === "Available" 
-              ? "Mark as Rented Out" 
-              : "Mark as Available"}
-          </button>
-        ) : (
-          <button
-            className="w-full py-3 px-4 rounded-lg flex items-center justify-center md:gap-[2rem] lg:gap-[2rem] text-black font-semibold lg:text-xl"
-            style={{ backgroundColor: "#3B9D94" }}
-            onClick={() => addToCompare(property)}
-          >
-    <img
-      src={fav}
-      alt="favorite"
-      className="hidden md:block lg:block h-6 w-5"
-    />
-    {property.availabilityStatus === "Available" 
-      ? "Proceed To Visit" 
-      : "Property Not Available"}
-  </button>
-)}
+          {isOwnerOrAdmin ? (
+            <button
+              className="w-full py-3 px-4 rounded-lg flex items-center justify-center md:gap-[2rem] lg:gap-[2rem] text-black font-semibold lg:text-xl"
+              style={{ backgroundColor: "#3B9D94" }}
+              onClick={() => changeAvailibilityStatus(property._id)}
+            >
+              <img
+                src={fav}
+                alt="favorite"
+                className="hidden md:block lg:block h-6 w-5"
+              />
+              {property.availabilityStatus === "Available"
+                ? "Mark as Rented Out"
+                : "Mark as Available"}
+            </button>
+          ) : (
+            <button
+              className="w-full py-3 px-4 rounded-lg flex items-center justify-center md:gap-[2rem] lg:gap-[2rem] text-black font-semibold lg:text-xl"
+              style={{ backgroundColor: "#3B9D94" }}
+              onClick={() => addToCompare(property)}
+            >
+              <img
+                src={fav}
+                alt="favorite"
+                className="hidden md:block lg:block h-6 w-5"
+              />
+              {property.availabilityStatus === "Available"
+                ? "Proceed To Visit"
+                : "Property Not Available"}
+            </button>
+          )}
         </div>
       </div>
 
